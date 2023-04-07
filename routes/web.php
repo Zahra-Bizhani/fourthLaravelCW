@@ -26,5 +26,6 @@ Route::get('/', function () {
     // $result=Product::seen()->get();
     // return view('show',get_defined_vars());
     dd(Product::find(2)->toArray());
+
     
 });
