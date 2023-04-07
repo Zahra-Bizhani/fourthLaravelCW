@@ -11,6 +11,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $hidden=['created_at','updated_at'];
+
     public function parentCategory():HasMany
     {
         return $this->hasMany(Category::class);
@@ -21,5 +23,16 @@ class Category extends Model
       return $query->whereNull('parent_category');
     }
 
+    public function scopeShow(Builder $query)
+    {
+      return $query->where('isShow',1);
+    }
 
+    public function products(){
+      return  $this->hasMany(Product::Class);
+    }
+
+    public function orders(){
+      return  $this->hasManyThrough(Order::Class,Product::Class);
+    }
 }

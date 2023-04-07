@@ -16,8 +16,13 @@ class Order extends Model
         return $this->hasOne(User::class);
     }
 
-    public function product(): HasOne
+    public function product()
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

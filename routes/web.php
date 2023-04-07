@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    //return Category::show()->get();
+    //dd(Product::find(5)->orders);
+    // $result=Product::seen()->get();
+    // return view('show',get_defined_vars());
+    dd(Product::find(2)->toArray());
 });
