@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
+use function PHPUnit\Framework\isNull;
 
 class Category extends Model
 {
@@ -13,7 +16,7 @@ class Category extends Model
 
     protected $hidden=['created_at','updated_at'];
 
-    public function parentCategory():HasMany
+    public function parentCategories():HasMany
     {
         return $this->hasMany(Category::class);
     }
@@ -34,5 +37,13 @@ class Category extends Model
 
     public function orders(){
       return  $this->hasManyThrough(Order::Class,Product::Class);
+    }
+
+
+    protected function parentCategory():Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ($value!==null)?$value:'ندارد',
+        );
     }
 }

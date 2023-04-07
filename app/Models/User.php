@@ -19,8 +19,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'city',
         'password',
     ];
 
@@ -43,11 +45,43 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // protected function email():Attribute
+    protected function email():Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => strtolower($value),
+        );
+    }
+    protected function firstName():Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ucfirst($value),
+        );
+    }
+    protected function lastName():Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ucfirst($value),
+        );
+    }
+    protected function city():Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => ucfirst($value),
+        );
+    }
+    protected function fullName():Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->first_name." ".$this->last_name,
+        );
+    }
+
+   
+
+
+
+    // public function setEmailAttribute()
     // {
-    //     return Attribute::make(
-    //         get: fn (string $value) => strtolower($value),
-    //     );
+    //     return $this->attributes['email'] = strtolower($this->email);
     // }
-    
 }
